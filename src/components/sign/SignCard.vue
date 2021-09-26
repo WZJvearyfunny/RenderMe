@@ -15,10 +15,10 @@
       ref="formLabelAlign"
       :rules="rules"
     >
-      <el-form-item label="Username or email address" prop="userName">
+      <el-form-item :label="formLabelAlign.userNameTitle" prop="userName">
         <el-input v-model="formLabelAlign.userName"></el-input>
       </el-form-item>
-      <el-form-item label="Password" prop="passWord">
+      <el-form-item :label="formLabelAlign.passWordTitle" prop="passWord">
         <el-input v-model="formLabelAlign.passWord"></el-input>
       </el-form-item>
     </el-form>
@@ -26,10 +26,15 @@
       style="width: 350px"
       round
       type="primary"
-      @click="submitForm('ruleForm')"
+      @click="submitForm('formLabelAlign')"
     >
       {{ signSubmit }}
     </el-button>
+    <div class="sign-page_card__footer">
+      <el-link type="primary" v-for="(item, i) in signWay" v-bind:key="i">
+        {{ item }}
+      </el-link>
+    </div>
   </el-card>
 </template>
 
@@ -37,18 +42,33 @@
 export default {
   data() {
     return {
-      signTitle: "登录",
-      signType: "注册",
-      signSubmit: "立即登录",
+      signTitle: "Welcome to RenderMe",
+      signType: "Sign up",
+      signSubmit: "Now Sign In",
       formLabelAlign: {
         userName: "",
+        userNameTitle: "Username or email address",
         passWord: "",
+        passWordTitle: "Password",
       },
       rules: {
         userName: [{ required: true, message: "请输入账号", trigger: "blur" }],
         passWord: [{ required: true, message: "请输入密码", trigger: "blur" }],
       },
+      signWay: ["支付宝", "微信", "QQ", "微博"],
     };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
   },
 };
 </script>
@@ -60,12 +80,18 @@ export default {
 }
 .sign-page_card__header_signTitle {
   font-size: 20px;
-  color: var(--color-fg-default);
+  color: #666769;
 }
 .sign-page_card__header {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  /* justify-content: end; */
+}
+.sign-page_card__footer {
+  padding: 20px 0 0 0;
+  margin-left: 20%;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
