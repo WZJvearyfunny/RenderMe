@@ -2,7 +2,7 @@
   <el-card class="sign-page_card">
     <div slot="header">
       <div class="sign-page_card__header">
-        <el-link icon="el-icon-back" :underline="false">Home</el-link>
+        <el-link icon="el-icon-back" :underline="false" href='/'>Home</el-link>
         <div class="sign-page_card__header_signTitle">
           <label>{{ signTitle }}</label>
         </div>
