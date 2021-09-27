@@ -42,6 +42,7 @@ export default {
     };
   },
   created() {
+    this.signType = this.$route.query.signtype || '0'
     this.ranDomAvatar();
     this.signType === "0"
       ? (this.userName = "User Name")
