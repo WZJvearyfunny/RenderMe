@@ -1,6 +1,6 @@
 <template>
   <el-container class="page_sty">
-    <el-header class="page_header" v-if="false">
+    <el-header class="page_header">
       <img
         src="https://iconfont.alicdn.com/t/7862a342-1387-4589-9a23-5ec8bccbe68d.png"
         width="60px"
@@ -38,7 +38,7 @@
         </div>
       </el-menu>
     </el-header>
-    <el-main>
+    <el-main style="padding-top: 0">
       <div class="homepage-main_top">
         <div style="width: 90%">
           <div class="homepage-main_top_space">
@@ -83,14 +83,17 @@
         @routeJump="routeJump"
         ref="homecard"
       />
+      <el-divider class="homepage-main_top_divider"></el-divider>
       <div class="homepage-main_actmenu">
         <div class="homepage-main_actmenu__grid">
-          <div>Code</div>
-          <div>Collaborate</div>
-          <div>Develop</div>
-          <div>Automate</div>
-          <div>Secure</div>
-          <div>Community</div>
+          <div
+            v-for="(item, index) in actmenuGrid"
+            v-bind:key="index"
+            :class="item.act && 'homepage-main_actmenu__grid_select'"
+            @click="changActmenuGrid(index)"
+          >
+            {{ item.title }}
+          </div>
         </div>
       </div>
       <div style="width: 100%; height: 1080px">123</div>
@@ -134,17 +137,35 @@ export default {
           desc: "Fortune 50",
         },
       ],
+      actmenuGrid: [
+        {
+          title: "Code",
+          act: false,
+        },
+        {
+          title: "Collaborate",
+          act: false,
+        },
+        {
+          title: "Develop",
+          act: false,
+        },
+        {
+          title: "Automate",
+          act: false,
+        },
+        {
+          title: "Secure",
+          act: false,
+        },
+        {
+          title: "Community",
+          act: false,
+        },
+      ],
     };
   },
-  mounted() {
-    const that = this;
-    document
-      .getElementsByClassName("el-main")[0]
-      .addEventListener("scroll", function () {
-        console.log("页面滚动事件");
-        console.dir(that.$refs.homecard.$el);
-      });
-  },
+  mounted() {},
   methods: {
     handleSelect(index, indexPath) {
       console.log("index", index);
@@ -154,8 +175,13 @@ export default {
       console.log(signtype);
       this.$router.push({ path: "sign", query: { signtype } });
     },
-    getScroll() {
-      console.log("112233");
+    changActmenuGrid(index) {
+      const indexstr = `${index}`
+      for (let i in this.actmenuGrid) {
+        i === indexstr
+          ? (this.actmenuGrid[i]["act"] = true)
+          : (this.actmenuGrid[i]["act"] = false);
+      }
     },
   },
 };
@@ -233,8 +259,9 @@ export default {
   margin-right: 15%;
 }
 .homepage-main_actmenu {
-  margin-top: 5%;
+  background: #fff;
   width: 100%;
+  height: 40px;
   display: flex;
   justify-content: center;
   position: sticky;
@@ -244,9 +271,19 @@ export default {
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  font-family: "Alliance No.1", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  word-break: keep-all;
   color: #24292f;
   font-size: 16px !important;
   line-height: 24px !important;
+  cursor: pointer;
+}
+.homepage-main_actmenu__grid_select {
+  display: block;
+  color: #040d21 !important;
+  border-bottom: thick solid #2188ff;
 }
 >>> .el-button--success {
   color: #fff;
