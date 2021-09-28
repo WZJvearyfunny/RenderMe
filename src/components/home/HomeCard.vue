@@ -1,6 +1,6 @@
 <template>
   <div class="home-main_picture">
-    <div class="home-main_picture1__connet">
+    <div class="home-main_picture1__connet" ref="connet">
       <div class="home-main_picture1__connet_title" style="max-width: 310px">
         <label>
           <h2
@@ -24,10 +24,12 @@
           <div
             class="home-main_picture1__connet_title_buttonlist"
             v-for="(item, index) in buttonList"
-            :style="{marginTop:(index>0?'10px':'')}"
+            :style="{ marginTop: index > 0 ? '10px' : '' }"
             v-bind:key="index"
           >
-            <el-button @click="applyFn(item.titleFn)"> {{ item.title }} </el-button>
+            <el-button @click="applyFn(item.titleFn)">
+              {{ item.title }}
+            </el-button>
             <el-link type="primary"> {{ item.contact }} </el-link>
           </div>
         </div>
@@ -72,11 +74,12 @@ export default {
       type: Array,
     },
   },
-  methods:{
-      applyFn(fn){
-          this.$emit(fn,'0');
-      }
-  }
+  mounted() {},
+  methods: {
+    applyFn(fn) {
+      this.$emit(fn, "0");
+    },
+  },
 };
 </script>
 
